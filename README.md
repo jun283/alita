@@ -1,33 +1,7 @@
-# go-application-starter-kit
+Alita is a agent app for linux, base on go-application-starter-kit. 
 
-A little go application starter kit for application development. Built-in error log,events log, auth, mux,and Middleware etc.
+## Goal
 
-### How to use
+1. monitoring of processes, CPU, memory and hard drive utilization on a Linux server.
 
-1. Single instance(Singleton): only one instance can runing
-
-       Singleton()
-
-2. Error log:
-
-       errLog.Fatal("[error]opening error file: %v", err)
-       
-3. Events log:
-
-       logger.Println("Start......")
-
-### Middleware
-
-1. loggingMiddleware
-2. authenticationMiddleware
-
-
-### Getting Started
-
-Cloning the latest version
-
-     git clone https://github.com/jun283/go-application-starter-kit.git
-
-### A simple
-
-![Simple](simple.png)
+2. Remote execution of commands.
