@@ -107,6 +107,8 @@ func main() {
 	r.HandleFunc("/", PingHandler)
 	r.HandleFunc("/log", LogHandler)
 	r.HandleFunc("/simple", SimpleHandler)
+	r.HandleFunc("/host/info", getHostInfoHandler)
+	//r.HandleFunc("/host/setname", HostInfoHandler)
 
 	logger.Fatal(http.ListenAndServe(":9900", r))
 }
