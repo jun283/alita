@@ -104,11 +104,18 @@ func main() {
 	}
 
 	//handler
-	r.HandleFunc("/", PingHandler)
-	r.HandleFunc("/log", LogHandler)
-	r.HandleFunc("/simple", SimpleHandler)
-	r.HandleFunc("/host/info", getHostInfoHandler)
-	//r.HandleFunc("/host/setname", HostInfoHandler)
+	/*
+		r.HandleFunc("/posts", getPosts).Methods("GET")
+		r.HandleFunc("/posts", createPost).Methods("POST")
+		r.HandleFunc("/posts/{id}", getPost).Methods("GET")
+		r.HandleFunc("/posts/{id}", updatePost).Methods("PUT")
+		r.HandleFunc("/posts/{id}", deletePost).Methods("DELETE")
+	*/
+	r.HandleFunc("/", PingHandler).Methods("GET")
+	r.HandleFunc("/log", LogHandler).Methods("GET")
+	r.HandleFunc("/simple", SimpleHandler).Methods("GET")
+	r.HandleFunc("/host/info", getHostInfoHandler).Methods("GET")
+	r.HandleFunc("/host/name", updateHostInfoHandler).Methods("PUT")
 
 	logger.Fatal(http.ListenAndServe(":9900", r))
 }

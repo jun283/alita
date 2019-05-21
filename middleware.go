@@ -36,7 +36,7 @@ func (amw *authenticationMiddleware) Populate() {
 
 	//Populate allow ip
 	amw.allowIPs["::1"] = "local"
-	amw.allowIPs["220.255.95.00"] = "office"
+	amw.allowIPs["1.2.3.4"] = "office"
 
 }
 

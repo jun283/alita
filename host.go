@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os/exec"
 	"time"
 
 	"github.com/shirou/gopsutil/cpu"
@@ -15,14 +16,13 @@ import (
 )
 
 type StatusServer struct {
-	Percent  StatusPercent
-	CPU      []CPUInfo
-	Mem      MemInfo
-	Swap     SwapInfo
-	Load     *load.AvgStat
-	Network  map[string]InterfaceInfo
-	BootTime uint64
-	Uptime   uint64
+	HostInfoStat *host.InfoStat
+	Percent      StatusPercent
+	CPU          []CPUInfo
+	Mem          MemInfo
+	Swap         SwapInfo
+	Load         *load.AvgStat
+	Network      map[string]InterfaceInfo
 }
 type StatusPercent struct {
 	CPU  float64
@@ -54,22 +54,25 @@ func getHostInfoHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Add("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Content-Type", "application/json")
-	fmt.Fprintf(w, infoMiniJSON())
+	fmt.Fprintf(w, hostInfoMiniJSON())
 }
-func infoMiniJSON() string {
+
+func hostInfoMiniJSON() string {
 	v, _ := mem.VirtualMemory()
 	s, _ := mem.SwapMemory()
 	c, _ := cpu.Info()
 	cc, _ := cpu.Percent(time.Second, false)
 	d, _ := disk.Usage("/")
-	n, _ := host.Info()
+	//n, _ := host.Info()
 	nv, _ := net.IOCounters(true)
 	l, _ := load.Avg()
 	i, _ := net.Interfaces()
+
 	ss := new(StatusServer)
+
+	ss.HostInfoStat, _ = host.Info()
+
 	ss.Load = l
-	ss.Uptime = n.Uptime
-	ss.BootTime = n.BootTime
 	ss.Percent.Mem = v.UsedPercent
 	ss.Percent.CPU = cc[0]
 	ss.Percent.Swap = s.UsedPercent
@@ -107,4 +110,19 @@ func infoMiniJSON() string {
 	} else {
 		return string(b)
 	}
+}
+
+func updateHostInfoHandler(w http.ResponseWriter, r *http.Request) {
+	//hostnamectl set-hostname 'newname'
+	//count, _ := strconv.Atoi(r.FormValue("count"))
+	name := r.FormValue("hostname")
+
+	cmd := exec.Command("/usr/bin/hostnamectl", "set-hostname", name)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	fmt.Fprintf(w, string(out))
 }

@@ -77,3 +77,17 @@
 2019/05/17 11:32:02 Authenticated from local
 2019/05/17 11:32:35 [::1]:50124 GET  /host/info
 2019/05/17 11:32:35 Authenticated from local
+2019/05/17 13:59:05 Start......
+2019/05/17 13:59:53 [::1]:51509 GET  /host/info
+2019/05/17 13:59:53 Authenticated from local
+2019/05/17 14:00:06 [::1]:51509 PUT  /host/name/abc
+2019/05/17 14:00:06 Authenticated from local
+2019/05/17 14:28:44 Start......
+2019/05/17 14:28:49 [::1]:52183 GET  /host/info
+2019/05/17 14:28:49 Authenticated from local
+2019/05/17 15:59:46 Start......
+2019/05/17 16:02:11 [::1]:53450 GET  /host/info
+2019/05/17 16:02:11 Authenticated from local
+2019/05/17 16:12:24 Start......
+2019/05/17 16:12:33 [::1]:53584 GET  /host/info
+2019/05/17 16:12:33 Authenticated from local
