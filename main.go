@@ -9,7 +9,6 @@ import (
 	"runtime"
 
 	"github.com/BurntSushi/toml"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
@@ -74,7 +73,11 @@ func init() {
 	if _, err := toml.DecodeFile("config.toml", &conf); err != nil {
 		errLog.Fatal(err)
 	}
-	fmt.Println(conf)
+
+	if conf.Debug {
+		fmt.Println(conf)
+	}
+
 }
 
 func PingHandler(w http.ResponseWriter, r *http.Request) {
@@ -91,13 +94,6 @@ func main() {
 
 	//Single instance
 	Singleton()
-
-	//connect to DB
-	//db, err := DBConnect()
-	//if err != nil {
-	//	os.Exit(0)
-	//}
-	//db.Close()
 
 	//Create Router
 	r := mux.NewRouter()

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net"
 	"net/http"
 	"strings"
@@ -25,7 +24,7 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-// Initialize it somewhere
+// Initialize authenticationMiddleware
 func (amw *authenticationMiddleware) Populate() {
 	amw.tokenUsers = make(map[string]string)
 	amw.allowIPs = make(map[string]string)
@@ -39,13 +38,11 @@ func (amw *authenticationMiddleware) Populate() {
 
 	//Populate allow ip
 	//amw.allowIPs["::1"] = "local"
-	amw.allowIPs["1.2.3.4"] = "office"
 	for _, l := range conf.Allow_ip {
 		p := strings.Split(l, ":=")
 		amw.allowIPs[p[1]] = p[0]
 	}
 
-	fmt.Println(amw)
 }
 
 // Middleware function, which will be called for each request
