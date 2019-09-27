@@ -29,7 +29,7 @@ Alita is a agent app for linux, base on go-application-starter-kit.
 
 ## Simple
 
-    /simple
+    http://localhost:9900/simple
 
 ![Simple](simple.png)
 
