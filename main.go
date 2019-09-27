@@ -22,7 +22,7 @@ const (
 var (
 	errLog *log.Logger
 	logger *log.Logger
-	conf   Config
+	conf   *Config
 )
 
 var (
@@ -30,11 +30,17 @@ var (
 )
 
 type Config struct {
-	Debug  bool
-	Authen bool
+	Debug      bool
+	GOMAXPROCS int
+	Authen     bool
+	Http_port  string
+	User_token []string
+	Allow_ip   []string
 }
 
 func init() {
+	fmt.Println("init.....")
+
 	flag.BoolVar(&flag_v, "v", false, "Version")
 	flag.BoolVar(&flag_debug, "debug", false, "Debug")
 	flag.BoolVar(&flag_help, "h", false, "Help")
@@ -68,7 +74,7 @@ func init() {
 	if _, err := toml.DecodeFile("config.toml", &conf); err != nil {
 		errLog.Fatal(err)
 	}
-
+	fmt.Println(conf)
 }
 
 func PingHandler(w http.ResponseWriter, r *http.Request) {
@@ -77,7 +83,10 @@ func PingHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	runtime.GOMAXPROCS(2)
+	if conf.GOMAXPROCS > 0 {
+		runtime.GOMAXPROCS(conf.GOMAXPROCS)
+	}
+
 	logger.Println("Start......")
 
 	//Single instance
@@ -117,5 +126,5 @@ func main() {
 	r.HandleFunc("/host/info", getHostInfoHandler).Methods("GET")
 	r.HandleFunc("/host/name", updateHostInfoHandler).Methods("PUT")
 
-	logger.Fatal(http.ListenAndServe(":9900", r))
+	logger.Fatal(http.ListenAndServe(":"+conf.Http_port, r))
 }

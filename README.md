@@ -29,13 +29,27 @@ My English is terrible, so documentation or correcting comments are also welcome
 
     /simple
 
+    ![Simple](simple.png)
+
 ## APIs
 
-1. /
+1.Root
 
-2. /log
+    GET /
 
-3. /host/info
+2.Log view
 
-4. /host/name
+    GET /log
 
+3.Host info
+
+    GET /host/info
+
+4.Change host name
+
+    PUT /host/name
+
+    form-data:
+    key:hostname  value=<new_host_name>
+
+5.

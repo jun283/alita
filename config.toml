@@ -1,2 +1,27 @@
+#Debug is true/false
 Debug = true
+
+#GOMAXPROCS sets the maximum number of CPUs that can be executing simultaneously and
+#returns the previous setting. If n = 0, it is maximum number of CPUs.
+GOMAXPROCS = 0
+
+#If Authen is true, all requests need to be authen token or allow_ip
+#if Authen is false, all requests are accepted
 Authen = true
+
+#List http port
+Http_port = "9900"
+
+#Authen  token
+#format is: <user name>:=<token>
+User_token = [
+"Admin:=ThisisAdminToken",
+"Alita:=AlitaIsaPrettyGirl"
+]
+
+#All requests from the whitelist are accepted
+#format is: <name>:=<ip>
+Allow_Ip = [
+"local:=::1",
+"office:=1.1.1.1"
+]

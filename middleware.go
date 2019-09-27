@@ -1,8 +1,10 @@
 package main
 
 import (
+	"fmt"
 	"net"
 	"net/http"
+	"strings"
 )
 
 //type MiddlewareFunc func(http.Handler) http.Handler
@@ -29,15 +31,21 @@ func (amw *authenticationMiddleware) Populate() {
 	amw.allowIPs = make(map[string]string)
 
 	//Populate token
-	amw.tokenUsers["00000000"] = "user0"
-	amw.tokenUsers["aaaaaaaa"] = "userA"
-	amw.tokenUsers["05f717e5"] = "randomUser"
-	amw.tokenUsers["deadbeef"] = "user0"
+	//amw.tokenUsers["00000000"] = "user0"
+	for _, t := range conf.User_token {
+		p := strings.Split(t, ":=")
+		amw.tokenUsers[p[1]] = p[0]
+	}
 
 	//Populate allow ip
-	amw.allowIPs["::1"] = "local"
+	//amw.allowIPs["::1"] = "local"
 	amw.allowIPs["1.2.3.4"] = "office"
+	for _, l := range conf.Allow_ip {
+		p := strings.Split(l, ":=")
+		amw.allowIPs[p[1]] = p[0]
+	}
 
+	fmt.Println(amw)
 }
 
 // Middleware function, which will be called for each request
