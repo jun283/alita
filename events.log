@@ -120,3 +120,10 @@
 2019/09/27 15:22:36 Authenticated from local
 2019/09/27 15:23:02 Start......
 2019/09/27 15:23:05 [::1]:64475 GET  /
+2019/10/04 13:51:07 Start......
+2019/10/04 13:51:23 [::1]:50568 GET  /
+2019/10/04 13:51:23 Authenticated from local
+2019/10/04 13:51:33 [::1]:50568 GET  /simple
+2019/10/04 13:51:33 Authenticated from local
+2019/10/04 13:51:42 [::1]:50568 GET  /log
+2019/10/04 13:51:42 Authenticated from local
