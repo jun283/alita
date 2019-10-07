@@ -1,4 +1,4 @@
-Alita is a agent app starter kit for linux, base on go-application-starter-kit.
+Alita is a golang agent app starter kit for linux, base on go-application-starter-kit.
 
 ## Goal
 
